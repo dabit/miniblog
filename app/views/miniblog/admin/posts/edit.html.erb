@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Edit Post</h1>
+  </div>
+</div>
+<%= form_for [:admin, @post] do |f| %>
+  <div class="row">
+    <%= render 'form', f: f %>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <%= f.submit "Update", class: "btn btn-primary" %>
+    </div>
+    <div class="col-xs-3">
+      <%= link_to 'Cancel', miniblog.admin_posts_path, class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>
