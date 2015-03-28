@@ -11,8 +11,8 @@ shared_examples_for "a miniblog", :type => :feature do
       visit root_path
 
       within "#post_#{post.id}" do
-        page.should have_content post.title
-        page.should have_content post.body
+        expect(page).to have_content post.title
+        expect(page).to have_content post.body
       end
     end
   end
@@ -27,8 +27,8 @@ shared_examples_for "a miniblog", :type => :feature do
         fill_in 'Body' , :with => 'A post body'
         click_button 'Update'
 
-        page.current_path.should == admin_posts_path
-        page.should have_content 'A post title'
+        expect(page.current_path).to eq admin_posts_path
+        expect(page).to have_content 'A post title'
       end
 
       context "a post exists" do
@@ -47,8 +47,8 @@ shared_examples_for "a miniblog", :type => :feature do
           fill_in 'Body' , :with => 'A NEW post body'
           click_button 'Update'
 
-          page.current_path.should == admin_posts_path
-          page.should have_content 'A NEW post title'
+          expect(page.current_path).to eq admin_posts_path
+          expect(page).to have_content 'A NEW post title'
         end
 
         it "deletes a post" do
@@ -57,8 +57,8 @@ shared_examples_for "a miniblog", :type => :feature do
           within "#post_#{post.id}" do
             click_link 'Delete'
           end
-          page.current_path.should == admin_posts_path
-          page.should_not have_content 'A post title'
+          expect(page.current_path).to eq admin_posts_path
+          expect(page).to_not have_content 'A post title'
         end
 
         it "publishes a post", :js => true do
@@ -68,9 +68,9 @@ shared_examples_for "a miniblog", :type => :feature do
             button = find_link 'Publish'
             button.click
 
-            post.reload.state.should eq 'published'
-            post.status_change_records.last.state.should == 'publish'
-            post.status_change_records.last.user.should  == ::User.last
+            expect(post.reload.state).to eq 'published'
+            expect(post.status_change_records.last.state).to eq 'publish'
+            expect(post.status_change_records.last.user).to eq ::User.last
           end
         end
       end

@@ -5,38 +5,38 @@ module Miniblog
     describe 'Class Methods' do
       describe '#self.all_posts_json' do
         it 'convert ordered posts to JSON' do
-          Post.should_receive(:order_by_publish_date).and_return Post
-          Post.should_receive(:to_json)
+          expect(Post).to receive(:order_by_publish_date).and_return Post
+          expect(Post).to receive(:to_json)
           Post.all_posts_json
         end
       end
 
       describe '#self.last_published' do
         it 'should find the last given post published, ordered' do
-          Post.should_receive(:published_and_ordered).and_return Post
-          Post.should_receive(:limit).with(11)
+          expect(Post).to receive(:published_and_ordered).and_return Post
+          expect(Post).to receive(:limit).with(11)
           Post.last_published(11)
         end
       end
 
       describe '#self.order_by_publish_date' do
         it 'should order by published' do
-          Post.should_receive(:order).with('published_at DESC, created_at DESC, id DESC')
+          expect(Post).to receive(:order).with('published_at DESC, created_at DESC, id DESC')
           Post.order_by_publish_date
         end
       end
 
       describe '#self.published' do
         it 'should only find Published Posts' do
-          Post.should_receive(:where).with(state: 'published')
+          expect(Post).to receive(:where).with(state: 'published')
           Post.published
         end
       end
 
       describe '#self.published_and_ordered' do
         it 'should find published posts and order them by published date (FILO)' do
-          Post.should_receive(:published).and_return Post
-          Post.should_receive(:order_by_publish_date).and_return Post
+          expect(Post).to receive(:published).and_return Post
+          expect(Post).to receive(:order_by_publish_date).and_return Post
           Post.published_and_ordered
         end
       end
@@ -46,15 +46,15 @@ module Miniblog
 
         context 'user is publisher' do
           it 'should see all the Posts' do
-            Post.scoped_for(user).should == Post.all
+            expect(Post.scoped_for(user)).to eq Post.all
           end
         end
 
         context 'user is not publisher' do
-          before { user.should_receive(:is_publisher?).and_return false }
+          before { expect(user).to receive(:is_publisher?).and_return false }
 
           it 'should see my own Posts only' do
-            user.should_receive(:authored_posts)
+            expect(user).to receive(:authored_posts)
             Post.scoped_for(user)
           end
         end
@@ -68,7 +68,7 @@ module Miniblog
         end
 
         it "returns false" do
-          subject.allowed_to_update_permalink?.should be_falsey
+          expect(subject.allowed_to_update_permalink?).to be_falsey
         end
       end
 
@@ -78,7 +78,7 @@ module Miniblog
         end
 
         it "returns true" do
-          subject.allowed_to_update_permalink?.should be_truthy
+          expect(subject.allowed_to_update_permalink?).to be_truthy
         end
       end
     end
@@ -90,7 +90,7 @@ module Miniblog
         end
 
         it "returns 02" do
-          subject.day.should == "02"
+          expect(subject.day).to eq "02"
         end
       end
     end
@@ -98,15 +98,15 @@ module Miniblog
     describe "#formatted_published_date" do
       it "Formats the published_at date" do
         subject.published_at = Time.zone.parse('2012/02/18')
-        subject.formatted_published_date.should == 'Feb 18, 2012'
+        expect(subject.formatted_published_date).to eq 'Feb 18, 2012'
       end
     end
 
     describe '#html_body' do
-      before { subject.should_receive(:body).and_return '**w00t**' }
+      before { expect(subject).to receive(:body).and_return '**w00t**' }
 
       it 'should parse the Markdown in the body' do
-        subject.html_body.should =~ /<strong>w00t<\/strong>/
+        expect(subject.html_body).to match /<strong>w00t<\/strong>/
       end
     end
 
@@ -117,7 +117,7 @@ module Miniblog
         end
 
         it "returns 02" do
-          subject.month.should == "02"
+          expect(subject.month).to eq "02"
         end
       end
     end
@@ -126,8 +126,8 @@ module Miniblog
       context "user is publisher" do
         let(:user) { stub_model(::User, :is_publisher? => true) }
         it "changes its state" do
-          subject.should_receive(:publisher=).with(user)
-          subject.should_receive('publish')
+          expect(subject).to receive(:publisher=).with(user)
+          expect(subject).to receive('publish')
           subject.publish_if_allowed('publish', user)
         end
       end
@@ -136,7 +136,7 @@ module Miniblog
         let(:user) { stub_model(::User, :is_publisher? => false) }
 
         it "does not change its state" do
-          subject.should_not_receive('publish')
+          expect(subject).to_not receive('publish')
           subject.publish_if_allowed('publish', user)
         end
       end
@@ -146,7 +146,7 @@ module Miniblog
       it "generates the permalink based on the post title" do
         subject.title = 'A big long post title'
         subject.regenerate_permalink
-        subject.permalink.should == 'a-big-long-post-title'
+        expect(subject.permalink).to eq 'a-big-long-post-title'
       end
     end
 
@@ -155,7 +155,7 @@ module Miniblog
                             day: 'DAY', permalink: 'PERMALINK') }
 
       it 'should return the array for permalink (year/month/day/permalink)' do
-        subject.url_params.should == %w(YEAR MONTH DAY PERMALINK html)
+        expect(subject.url_params).to eq %w(YEAR MONTH DAY PERMALINK html)
       end
     end
 

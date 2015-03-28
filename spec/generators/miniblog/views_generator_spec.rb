@@ -10,7 +10,7 @@ describe Miniblog::ViewsGenerator do
   it "copies all the views" do
     Miniblog::ViewsGenerator.start([], :destination_root => destination)
     Dir['app/views/**/*'].each do |f|
-      File.read(f).should eq File.read(File.join(destination, f)) unless File.directory?(f)
+      expect(File.read(f)).to eq File.read(File.join(destination, f)) unless File.directory?(f)
     end
   end
 end
