@@ -1,13 +1,11 @@
 module Crowdblog
   module Admin
     class PostsController < Crowdblog::Admin::BaseController
-      respond_to :html, :json
-
       before_filter :load_post, :only => [ :edit, :update, :destroy ]
 
       def new
         @post = Post.new
-      	@post.state = :drafted
+        @post.state = :drafted
         @post.author = current_user
         @post.save!
         redirect_to edit_admin_post_path(@post)
@@ -17,7 +15,6 @@ module Crowdblog
         @state = params[:state]
         @posts = Post.scoped_for(current_user).for_admin_index
         @posts = @posts.with_state(@state) if @state
-        respond_with @posts
       end
 
       def create
@@ -25,20 +22,17 @@ module Crowdblog
         @post.author = current_user
         @post.regenerate_permalink
         if @post.save
-          respond_with @post, :location => crowdblog.admin_posts_path
+          redirect_to crowdblog.edit_admin_post_path(@post)
         end
       end
 
       def destroy
         @post.destroy
-        respond_with @post, :location => crowdblog.admin_posts_path
+        redirect_to crowdblog.admin_posts_path
       end
 
       def show
         @post = Post.includes(:assets).find(params[:id])
-        respond_to do |format|
-          format.json { render json: @post.to_json(include: :assets) }
-        end
       end
 
       def edit
@@ -50,10 +44,7 @@ module Crowdblog
           @post.regenerate_permalink
           @post.save!
         end
-
-        respond_with @post do |format|
-          format.html { redirect_to crowdblog.admin_posts_path }
-        end
+        redirect_to crowdblog.admin_posts_path
       end
 
       private

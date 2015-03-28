@@ -1,7 +1,6 @@
 module Crowdblog
   module Admin
     class TransitionsController < Crowdblog::Admin::BaseController
-      respond_to :json
       before_filter :load_post, only: [:create]
 
       def create
@@ -9,7 +8,7 @@ module Crowdblog
         @post.send "#{params[:transition]}#{namespace}"
         status = @post.status_change_records.build(user: current_user, state: params[:transition])
         status.save
-        respond_with @post, location: admin_post_url(@post)
+        redirect_to admin_posts_path
       end
 
       private

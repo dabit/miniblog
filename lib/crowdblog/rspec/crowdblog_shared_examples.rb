@@ -75,53 +75,7 @@ shared_examples_for "a crowdblog", :type => :feature do
             post.status_change_records.last.user.should  == ::User.last
           end
         end
-
-        it "draftes a post", :js => true do
-          post.publish_as_publisher!
-
-          visit admin_posts_path
-
-          within "#post_#{post.id}" do
-            button = find_link 'Publish'
-            button.click
-
-            page.should have_css '.publish-btn.btn-danger'
-            page.should have_css '.draft.active'
-            post.reload.state.should eq 'drafted'
-            post.status_change_records.last.state.should == 'draft'
-            post.status_change_records.last.user.should  == ::User.last
-          end
-        end
-
-        it "marks the post as reviewed", :js => true do
-          post.finish!
-          visit admin_posts_path
-
-          within "#post_#{post.id}" do
-            button = find_button 'Reviewed'
-            button.click
-
-            page.should have_css '.review.active'
-            post.reload.state.should eq 'reviewed'
-            post.status_change_records.last.state.should == 'review'
-            post.status_change_records.last.user.should  == ::User.last
-          end
-        end
-
-        it "marks the post as finished", :js => true do
-          visit admin_posts_path
-
-          within "#post_#{post.id}" do
-            button = find_button 'Finished'
-            button.click
-
-            page.should have_css '.finish.active'
-            post.reload.state.should eq 'finished'
-            post.status_change_records.last.state.should == 'finish'
-            post.status_change_records.last.user.should  == ::User.last
-          end
-        end
-       end
+      end
     end
   end
 end
