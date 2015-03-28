@@ -7,7 +7,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'rspec/active_model/mocks'
 require 'capybara/rspec'
-require 'crowdblog/rspec'
+require 'miniblog/rspec'
 require 'database_cleaner'
 require 'coffee_script'
 
@@ -40,7 +40,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 
   # Include Engine routes (needed for Controller specs)
-  config.include Crowdblog::Engine.routes.url_helpers
+  config.include Miniblog::Engine.routes.url_helpers
 
   config.include Capybara::DSL
 

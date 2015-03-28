@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  include Crowdblog::User
+  include Miniblog::User
 end

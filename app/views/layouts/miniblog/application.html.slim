@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Mini Blog
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = csrf_meta_tags
+
+    = yield :scripts
+
+  body
+    .container
+      .row= render '/miniblog/application/navbar'
+      .row= render '/miniblog/application/notices'
+      .row= yield

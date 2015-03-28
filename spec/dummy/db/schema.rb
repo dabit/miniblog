@@ -13,14 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20140501164642) do
 
-  create_table "crowdblog_assets", force: true do |t|
+  create_table "miniblog_assets", force: true do |t|
     t.integer  "post_id"
     t.string   "attachment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "crowdblog_posts", force: true do |t|
+  create_table "miniblog_posts", force: true do |t|
     t.string   "title"
     t.text     "body"
     t.string   "permalink"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140501164642) do
     t.datetime "updated_at"
   end
 
-  create_table "crowdblog_status_change_records", force: true do |t|
+  create_table "miniblog_status_change_records", force: true do |t|
     t.integer  "user_id"
     t.integer  "post_id"
     t.string   "state"

@@ -1,1 +1,1 @@
-Time::DATE_FORMATS[:crowdblog_short] = '%Y-%m-%d'
+Time::DATE_FORMATS[:miniblog_short] = '%Y-%m-%d'

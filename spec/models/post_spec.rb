@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Crowdblog
+module Miniblog
   describe Post do
     describe 'Class Methods' do
       describe '#self.all_posts_json' do

@@ -1,19 +1,19 @@
-# CrowdBlog
+# miniblog
 
 CI:
-[![Build Status](https://travis-ci.org/crowdint/crowdblog.svg?branch=master)](https://travis-ci.org/crowdint/crowdblog)
+[![Build Status](https://travis-ci.org/dabit/miniblog.svg?branch=master)](https://travis-ci.org/dabit/miniblog)
 
 Code Climate:
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/crowdint/crowdblog)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/dabit/miniblog)
 
-Generic Blog engine, currently in use by [blog.crowdint.com](http://blog.crowdint.com)
-and [crowdint.com/careers](http://crowdint.com/careers), among others.
+Generic Blog engine, currently in use by [david.padilla.cc](http://david.padilla.cc).
+
 
 ## Installation
 
 Gemfile
 
-    gem 'crowdblog'
+    gem 'miniblog'
 
 Bundle
 
@@ -21,7 +21,7 @@ Bundle
 
 Copy migrations
 
-    rake crowdblog:install:migrations
+    rake miniblog:install:migrations
 
 Run them
 
@@ -33,20 +33,12 @@ Mount
     # routes.rb
     #
 
-    mount Crowdblog::Engine => '/blog_admin'
+    mount Miniblog::Engine => '/blog'
 
 Enjoy.
 
 Your Rails App should implement the "client facing" pages. Read posts from the
-Crowdblog::Post model.
-
-### Authentication
-
-The gem includes a very basic Devise implementation. We use it in combination
-with [this gem](https://github.com/crowdint/crowdint_auth) to authenticate
-via our Google Apps accounts.
-
-Take a look [at this code](https://github.com/crowdint/blog.crowdint.com) as an implementation example.
+miniblog::Post model.
 
 ## Testing: Use with caution
 
@@ -56,7 +48,7 @@ sure your blog behaves properly.
 
 Add this on your spec_helper, right after you require `rspec/rails`:
 
-    require 'crowdblog/rspec'
+    require 'miniblog/rspec'
     require 'database_cleaner'
 
 Your are going to need DatabaseCleaner to use truncation strategies for your
@@ -80,22 +72,15 @@ data. Add these lines to spec_helper.rb:
       end
     end
 
-Now, create a crowdblog spec:
+Now, create a miniblog spec:
 
     #
-    # spec/integration/crowdblog_spec.rb
+    # spec/integration/miniblog_spec.rb
     #
     require 'spec_helper'
 
-    describe "Crowdblog" do
-      it_behaves_like "a crowdblog"
+    describe "miniblog" do
+      it_behaves_like "a miniblog"
     end
 
-And run your specs. It should test Crowdblog properly.
-
-[Crowd Interactive](http://www.crowdint.com) is a leading Ruby and Rails consultancy
-firm based in Mexico currently doing business with startups in the United States.
-We specialize in building and growing your existing development team, by adding
-engineers onsite or offsite. We pick our clients carefully, as we only work with
-companies we believe in. Find out more about us on our [website](http://www.crowdint.com).
-
+And run your specs. It should test miniblog properly.

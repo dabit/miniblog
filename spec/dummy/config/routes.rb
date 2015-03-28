@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Crowdblog::Engine => '/'
+  mount Miniblog::Engine => '/'
 end

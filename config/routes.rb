@@ -1,4 +1,4 @@
-Crowdblog::Engine.routes.draw do
+Miniblog::Engine.routes.draw do
   root :to => 'posts#index'
 
   namespace :admin do

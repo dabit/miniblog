@@ -1,0 +1,28 @@
+.span12
+  h1 Posts
+
+  .row
+    .span3.new-link
+      = link_to 'New Post', miniblog.new_admin_post_path, :class => "btn btn-primary btn-small"
+    .span3.offset6
+      ul.nav.nav-pills
+        li class="#{@state ? '' : 'active'}"
+          = link_to 'All', miniblog.admin_posts_path
+        li class="#{@state == 'published' ? 'active' : ''}"
+          = link_to 'Published', miniblog.admin_posts_by_state_path('published')
+        li class="#{@state == 'drafted' ? 'active' : ''}"
+          = link_to 'Drafted', miniblog.admin_posts_by_state_path('drafted')
+
+  #posts.container
+    table.table.table-striped= render :partial => 'post', :collection => @posts
+
+  - content_for :scripts do
+    javascript:
+        $(function() {
+          return $('tr.post').each(function(index, el) {
+            miniblog.adminPostsPath = '#{miniblog.admin_posts_path}';
+            return new miniblog.Views.PostView({
+              el: el
+            });
+          });
+        });
