@@ -68,8 +68,6 @@ shared_examples_for "a miniblog", :type => :feature do
             button = find_link 'Publish'
             button.click
 
-            page.should have_css '.publish-btn.btn-success'
-            page.should have_css '.review.active'
             post.reload.state.should eq 'published'
             post.status_change_records.last.state.should == 'publish'
             post.status_change_records.last.user.should  == ::User.last

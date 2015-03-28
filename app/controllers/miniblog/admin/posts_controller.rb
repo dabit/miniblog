@@ -1,6 +1,6 @@
 module Miniblog
   module Admin
-    class PostsController < miniblog::Admin::BaseController
+    class PostsController < Miniblog::Admin::BaseController
       before_filter :load_post, :only => [ :edit, :update, :destroy ]
 
       def new

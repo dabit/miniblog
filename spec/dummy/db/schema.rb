@@ -13,14 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20140501164642) do
 
-  create_table "miniblog_assets", force: true do |t|
+  create_table "miniblog_assets", force: :cascade do |t|
     t.integer  "post_id"
     t.string   "attachment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "miniblog_posts", force: true do |t|
+  create_table "miniblog_posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.string   "permalink"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140501164642) do
     t.datetime "updated_at"
   end
 
-  create_table "miniblog_status_change_records", force: true do |t|
+  create_table "miniblog_status_change_records", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "post_id"
     t.string   "state"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140501164642) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
   end
