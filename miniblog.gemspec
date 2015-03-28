@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 4.1'
 
+  s.add_dependency 'bootstrap-sass'
   s.add_dependency 'carrierwave', '~> 0.10.0'
   s.add_dependency 'gravtastic'
   s.add_dependency 'jquery-rails'
