@@ -7,7 +7,7 @@ Code Climate:
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/dabit/miniblog)
 
 Generic Blog engine, currently in use by [david.padilla.cc](http://david.padilla.cc).
-
+Spiritual successor to [crowdblog](https://github.com/crowdint/crowdblog).
 
 ## Installation
 
