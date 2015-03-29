@@ -3,7 +3,6 @@ module  Miniblog
     belongs_to :author, :class_name => Miniblog.author_user_class_name
     belongs_to :publisher, :class_name => Miniblog.publisher_user_class_name
     has_many :assets
-    has_many :status_change_records
 
     delegate :name, to: :author, prefix: true, allow_nil: true
     delegate :email, to: :author, prefix: true, allow_nil: true
