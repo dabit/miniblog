@@ -17,25 +17,8 @@ module  Miniblog
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
 
-    state_machine initial: :drafted do
+    state_machine :state, initial: :drafted do
       state :drafted
-      state :finished
-      state :reviewed
-      state :published
-
-      event :finish do
-        transition drafted: :finished
-      end
-
-      event :draft do
-        transition finished: :drafted
-      end
-    end
-
-    state_machine :publisher, attribute: :state, initial: :drafted, namespace: :as_publisher do
-      state :drafted
-      state :finished
-      state :reviewed
       state :published
 
       before_transition on: :publish do |post, transition|
@@ -47,15 +30,7 @@ module  Miniblog
       end
 
       event :draft do
-        transition published: :drafted
-      end
-
-      event :finish do
-        transition drafted: :finished
-      end
-
-      event :review do
-        transition finished: :reviewed
+        transition all => :drafted
       end
 
       event :publish do

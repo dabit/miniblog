@@ -11,6 +11,8 @@ module Miniblog::Admin::PostsHelper
   end
 
   def publish_post_button(post)
-    link_to 'Publish', '#', class: "btn btn-block #{post.published? ? "btn-success" : "btn-danger" }"
+    link_to 'Publish', miniblog.admin_post_state_path(post),
+        class: "btn btn-block #{post.published? ? "btn-success" : "btn-danger" }",
+        method: :put
   end
 end

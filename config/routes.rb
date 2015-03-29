@@ -16,6 +16,7 @@ Miniblog::Engine.routes.draw do
 
     resources :posts do
       resources :assets
+      resource :state, only: :update
     end
 
     root :to => 'posts#index'
