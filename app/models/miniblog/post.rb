@@ -11,6 +11,8 @@ module  Miniblog
 
     delegate :year, to: :published_at
 
+    validates_presence_of :title
+
     attr_accessor :transition
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/

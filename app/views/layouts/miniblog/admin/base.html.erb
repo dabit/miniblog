@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Crowd Blog</title>
-<%= stylesheet_link_tag    :miniblog, media: 'all' %>
-<%= javascript_include_tag :miniblog %>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<%= csrf_meta_tags %>
-
-<%= yield :scripts %>
-
-</head>
-<body>
-<div class="container">
-  <div class="row">
-    <%= render '/miniblog/application/navbar' %>
-  </div>
-  <div class="row">
-    <%= render '/miniblog/application/notices' %>
-  </div>
-  <div class="row">
-    <%= yield %>
-  </div>
-</div>
-</body>
+  <head>
+    <title>Crowd Blog</title>
+    <%= stylesheet_link_tag    :miniblog, media: 'all' %>
+    <%= javascript_include_tag :miniblog %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= yield :scripts %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <%= render '/miniblog/application/navbar' %>
+      </div>
+      <div class="row">
+        <%= render '/miniblog/application/notices' %>
+      </div>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
 </html>

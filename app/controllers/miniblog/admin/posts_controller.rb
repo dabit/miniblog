@@ -7,22 +7,23 @@ module Miniblog
         @post = Post.new
         @post.state = :drafted
         @post.author = current_user
-        @post.save!
-        redirect_to edit_admin_post_path(@post)
       end
 
       def index
         @state = params[:state]
-        @posts = Post.scoped_for(current_user).for_admin_index
+        @posts = Post.for_admin_index
         @posts = @posts.with_state(@state) if @state
       end
 
       def create
         @post = Post.new(post_params)
+        @post.state = :drafted
         @post.author = current_user
         @post.regenerate_permalink
         if @post.save
-          redirect_to miniblog.edit_admin_post_path(@post)
+          redirect_to miniblog.edit_admin_post_path(@post), notice: "Post created succesfully"
+        else
+          render action: :new
         end
       end
 
@@ -39,12 +40,14 @@ module Miniblog
       end
 
       def update
-        @post.update_attributes(post_params)
-        if @post.allowed_to_update_permalink?
-          @post.regenerate_permalink
-          @post.save!
+        if @post.update_attributes(post_params)
+          if @post.allowed_to_update_permalink?
+            @post.regenerate_permalink
+            @post.save!
+          end
+          flash[:notice] = "Post updated succesfully"
         end
-        redirect_to miniblog.admin_posts_path
+        render action: :edit
       end
 
       private
