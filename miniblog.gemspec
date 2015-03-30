@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder'
   s.add_dependency 'redcarpet', '~> 3.2.2'
-  s.add_dependency 'slim'
   s.add_dependency 'state_machine', '~> 1.2.0'
 
   s.add_development_dependency 'capybara-webkit', '~> 1.5.0'
