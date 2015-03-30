@@ -51,6 +51,16 @@ shared_examples_for "a miniblog", :type => :feature do
           expect(post.reload.title).to eq 'A NEW post title'
         end
 
+        it "previews a post" do
+          visit admin_posts_path
+          within "#post_#{post.id}" do
+            click_link 'Edit', match: :first
+          end
+
+          click_link 'Preview'
+          expect(page.current_path).to eq admin_preview_path(post)
+        end
+
         it "deletes a post" do
           visit admin_posts_path
 
