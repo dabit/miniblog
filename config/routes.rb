@@ -1,6 +1,9 @@
 Miniblog::Engine.routes.draw do
   root :to => 'posts#index'
 
+  resources :posts, only: :show
+  get 'sitemap.(:format)', to: 'sitemap#show'
+
   namespace :admin do
     resources :authors, only: :index
 
@@ -22,5 +25,6 @@ Miniblog::Engine.routes.draw do
     resources :preview, only: :show
 
     root :to => 'posts#index'
+
   end
 end
