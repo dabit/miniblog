@@ -21,6 +21,7 @@ module Miniblog
         @post.author = current_user
         @post.regenerate_permalink
         if @post.save
+          after_post_is_saved
           redirect_to miniblog.edit_admin_post_path(@post), notice: "Post created succesfully"
         else
           render action: :new
@@ -45,6 +46,7 @@ module Miniblog
             @post.regenerate_permalink
             @post.save!
           end
+          after_post_is_saved
           flash[:notice] = "Post updated succesfully"
         end
         render action: :edit
