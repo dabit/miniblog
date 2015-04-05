@@ -1,4 +1,4 @@
-module  Miniblog
+module Miniblog
   class Asset < ActiveRecord::Base
     belongs_to :post
 

@@ -7,4 +7,16 @@
     <%= f.label :body %>
     <%= f.text_area :body, class: "form-control", rows: 20 %>
   </div>
+  <%- if f.object.persisted? %>
+    <ul>
+      <%- f.object.assets.each do |asset| %>
+        <li>![](<%= asset.attachment.url %>)</li>
+      <% end %>
+    </ul>
+    <%= f.fields_for f.object.assets.build do |ff| %>
+      <div class="form-group">
+        <%= ff.file_field :attachment, class: "form-control" %>
+      </div>
+    <% end %>
+  <% end %>
 </div>

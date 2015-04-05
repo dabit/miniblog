@@ -41,6 +41,8 @@ module Miniblog
       end
 
       def update
+        handle_asset
+
         if @post.update_attributes(post_params)
           if @post.allowed_to_update_permalink?
             @post.regenerate_permalink
@@ -58,7 +60,16 @@ module Miniblog
       end
 
       def post_params
-        params.require(:post).permit(:title, :body, :updated_by, :ready_for_review, :transition)
+        @params ||= params.require(:post).
+          permit(:title, :body, :updated_by, :ready_for_review, :transition,
+                 { asset: [ :attachment ]})
+      end
+
+      def handle_asset
+        if asset_params = post_params.delete(:asset)
+          @asset = @post.assets.build(asset)
+          @asset.attachment = asset_params[:attachment]
+        end
       end
     end
   end
